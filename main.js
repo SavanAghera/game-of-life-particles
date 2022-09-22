@@ -5,14 +5,14 @@ const canvasSize = 600;
 let animationFrame;
 let red, blue, green, slowSpeed = 1;
 
-function createParticle(x, y) {
-    return {x: x, y: y, vx: 0, vy: 0}
+function createParticle(x, y, num) {
+    return {x: x, y: y, vx: 0, vy: 0, id: new Date().getTime() + '' + num };
 }
 
 function createGroup(number) {
     const group = [];
     for (let i = 0; i < number; i++) {
-        const p = createParticle(getRandom(), getRandom());
+        const p = createParticle(getRandom(), getRandom(), i);
         group.push(p);
     }
     return group;
@@ -33,26 +33,29 @@ function rule(particles1, particles2, force) {
     for (let i = 0; i < particles1.length; i++) {
         for (let j = 0; j < particles2.length; j++) {
             const d = getDistance(particles1[i], particles2[j])
-
-            if (d !== 0) {
+            const p1 = particles1[i];
+            const p2 = particles2[j];
+            if (d !== 0 && p1.id !== p2.id) {
 
                 let v = force / (d ** 2 * slowSpeed);
-                const p1 = particles1[i];
-                const p2 = particles2[j];
+                
                 p1.vx += v * (p2.x - p1.x);
                 p1.vy += v * (p2.y - p1.y);
-                if (d < radius * 2 && force > 0) {
-                    p1.vx = 0;
-                    p1.vy = 0;
-                }
-                p1.x += p1.vx;
-                p1.y += p1.vy;
+         
+                
                 if (p1.x > canvasSize - radius * 2 || p1.x < radius * 2) {
                     p1.vx = -p1.vx;
                 }
                 if (p1.y > canvasSize - radius * 2 || p1.y < radius * 2) {
                     p1.vy = -p1.vy;
                 }
+                if (d < radius * 2 ) {
+                    p1.vx = 0;
+                    p1.vy = 0;
+                }
+                p1.x += p1.vx;
+                p1.y += p1.vy;
+              
             }
 
         }
@@ -112,3 +115,4 @@ function start() {
     update();
 
 }
+start()
