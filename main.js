@@ -50,8 +50,8 @@ function rule(particles1, particles2, force) {
                     p1.vy = -p1.vy;
                 }
                 if (d < radius * 2 ) {
-                    p1.vx = 0;
-                    p1.vy = 0;
+                    //p1.vx = 0;
+                    //p1.vy = 0;
                 }
                 p1.x += p1.vx;
                 p1.y += p1.vy;
