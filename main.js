@@ -38,10 +38,9 @@ function rule(particles1, particles2, force) {
             if (d !== 0 && p1.id !== p2.id) {
 
                 let v = force / (d ** 2 * slowSpeed);
-                
+            
                 p1.vx += v * (p2.x - p1.x);
                 p1.vy += v * (p2.y - p1.y);
-         
                 
                 if (p1.x > canvasSize - radius * 2 || p1.x < radius * 2) {
                     p1.vx = -p1.vx;
@@ -49,10 +48,12 @@ function rule(particles1, particles2, force) {
                 if (p1.y > canvasSize - radius * 2 || p1.y < radius * 2) {
                     p1.vy = -p1.vy;
                 }
-                if (d < radius * 2 ) {
-                    //p1.vx = 0;
-                    //p1.vy = 0;
+                if (d < radius * 2 && force > 0)   {
+                    p1.vx =0;
+                    p1.vy = 0;
                 }
+                    
+             
                 p1.x += p1.vx;
                 p1.y += p1.vy;
               

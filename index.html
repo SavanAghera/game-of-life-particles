@@ -15,31 +15,31 @@
 <div>
     <canvas id="lifeBoard" width="600" height="600"></canvas>
     <div>
-        <input id="red" placeholder="red count" value="2"/>
-        <input id="blue" placeholder="blue count" value="0"/>
-        <input id="green" placeholder="green count" value="0"/>
+        <input id="red" placeholder="red count" value="100"/>
+        <input id="blue" placeholder="blue count" value="100"/>
+        <input id="green" placeholder="green count" value="100"/>
         <button onclick="start()">start</button>
     </div>
     <div>
-        <input id="slowSpeed" placeholder="slow speed" value="1">
+        <input id="slowSpeed" placeholder="slow speed" value="100">
     </div>
     <div>
         <b>rules</b>
         <div>
-            <input id="red-red" placeholder="red-> red" value="1">
+            <input id="red-red" placeholder="red-> red" value="-0.5">
             <hr>
         </div>
         <div>
-            <input id="blue-blue" placeholder="blue-> blue" value="1">
-            <input id="blue-red" placeholder="blue->red" value="-0.5">
+            <input id="blue-blue" placeholder="blue-> blue" value="-1">
+            <input id="blue-red" placeholder="blue->red" value="1">
             <input id="red-blue" placeholder="red->blue" value="1">
             <hr>
         </div>
 
 
-        <input id="green-green" placeholder="green->green" value="-2">
-        <input id="green-red" placeholder="green->red" value="1">
-        <input id="red-green" placeholder="red->green" value="1">
+        <input id="green-green" placeholder="green->green" value="0.5">
+        <input id="green-red" placeholder="green->red" value="-0.5">
+        <input id="red-green" placeholder="red->green" value="-0.5">
         <input id="blue-green" placeholder="blue->green" value="1">
         <input id="green-blue" placeholder="green->blue" value="1">
 
