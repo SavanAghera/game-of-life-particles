@@ -3,7 +3,21 @@ const cc = canvas.getContext("2d");
 const radius = 5;
 const canvasSize = 600;
 let animationFrame;
-let red, blue, green, slowSpeed = 1;
+let colorObj = {
+    red: {
+      label: "red",
+      value: 1,
+    },
+    blue: {
+      label: "blue",
+      value: 1,
+    },
+    green: {
+      label: "green",
+      value: 1,
+    },
+  };
+let slowSpeed = 1;
 
 function createParticle(x, y, num) {
     return {x: x, y: y, vx: 0, vy: 0, id: new Date().getTime() + '' + num };
@@ -83,20 +97,34 @@ function boarderRule(particles, force) {
 function update() {
     cc.fillStyle = 'black';
     cc.fillRect(0, 0, canvasSize, canvasSize);
-    rule(red, red, document.getElementById('red-red').value*1 || 0);
+    
+  for (const color1 in colorObj) {
+    for (const color2 in colorObj) {
+      rule(
+        colorObj[color1].value,
+        colorObj[color2].value,
+        document.getElementById(
+          `${colorObj[color1].label}-${colorObj[color2].label}`
+        ).value * 1 || 0
+      );
+    }
+    draw(colorObj[color1].value, colorObj[color1].label);
+  }
 
-    rule(blue, blue, document.getElementById('blue-blue').value*1 ||0);
-    rule(blue, red, document.getElementById('blue-red').value*1 ||0);
-    rule(red, blue, document.getElementById('red-blue').value*1 ||0);
+    // rule(red, red, document.getElementById('red-red').value*1 || 0);
 
-    rule(green, green, document.getElementById('green-green').value*1||0);
-    rule(green, red, document.getElementById('green-red').value*1||0);
-    rule(red, green, document.getElementById('red-green').value*1||0);
-    rule(blue, green, document.getElementById('blue-green').value*1||0);
-    rule(green, blue, document.getElementById('green-blue').value*1||0);
-    draw(red, 'red');
-    draw(blue, 'blue');
-    draw(green, 'green');
+    // rule(blue, blue, document.getElementById('blue-blue').value*1 ||0);
+    // rule(blue, red, document.getElementById('blue-red').value*1 ||0);
+    // rule(red, blue, document.getElementById('red-blue').value*1 ||0);
+
+    // rule(green, green, document.getElementById('green-green').value*1||0);
+    // rule(green, red, document.getElementById('green-red').value*1||0);
+    // rule(red, green, document.getElementById('red-green').value*1||0);
+    // rule(blue, green, document.getElementById('blue-green').value*1||0);
+    // rule(green, blue, document.getElementById('green-blue').value*1||0);
+    // draw(red, 'red');
+    // draw(blue, 'blue');
+    // draw(green, 'green');
     animationFrame = requestAnimationFrame(update);
 }
 
@@ -108,9 +136,14 @@ function start() {
     if (animationFrame) {
         cancelAnimationFrame(animationFrame);
     }
-    red = createGroup(document.getElementById('red').value * 1);
-    blue = createGroup(document.getElementById('blue').value * 1);
-    green = createGroup(document.getElementById('green').value * 1);
+    for (const color in colorObj) {
+        colorObj[color].value = createGroup(
+          document.getElementById(colorObj[color].label).value * 1
+        );
+      }
+    // red = createGroup(document.getElementById('red').value * 1);
+    // blue = createGroup(document.getElementById('blue').value * 1);
+    // green = createGroup(document.getElementById('green').value * 1);
     slowSpeed = document.getElementById('slowSpeed').value * 1;
 
     update();
